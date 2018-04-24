@@ -12,8 +12,6 @@ function lineTo(g, a, b) {
   g.lineTo(round(a), round(b));
 }
 
-
-
 function fillRect(g, a, b, c, d) {
   g.fillRect(round(a), round(b), Math.round(c), Math.round(d));
 }

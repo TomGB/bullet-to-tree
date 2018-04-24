@@ -170,6 +170,10 @@ window.addEventListener('load', function () {
     draw();
   });
 
+  $(".js-line-length").on('input', function(e) {
+    $(document).trigger("line-length",$(".js-line-length").val());
+  });
+
   document.addEventListener('keydown', keyPressed, false);
   document.addEventListener('keyup', keyReleased, false);
 

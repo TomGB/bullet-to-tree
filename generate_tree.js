@@ -1,5 +1,26 @@
 "use strict";
 
+function calculateWrapText(g, text) {
+	var words = text.split(' ');
+	var line = '';
+	var linesWritten = [];
+
+	for(var n = 0; n < words.length; n++) {
+		var testLine = line + words[n] + ' ';
+		var metrics = g.measureText(testLine);
+		var testWidth = metrics.width;
+		if (testWidth > lineLength && n > 0) {
+			linesWritten.push(line);
+			line = words[n] + ' ';
+		}
+		else {
+			line = testLine;
+		}
+	}
+	linesWritten.push(line);
+	return linesWritten;
+}
+
 function generateTree() {
 
   top_tree = new Tree("Tree",-1, null);
@@ -70,7 +91,16 @@ function layoutTree() {
   g.font="10px Arial";
   for (var i = 0; i < tree_layers.length; i++) {
     for (var j = 0; j < tree_layers[i].length; j++) {
-      tree_layers[i][j].setBoxWidth(g.measureText(tree_layers[i][j].value).width + tree_layers[i][j].inner_box_padding*2);
+      let textWidth = g.measureText(tree_layers[i][j].value).width;
+      let textHeight = 30; // default height
+      if (textWidth > lineLength) {
+        console.log('running wrap text on',tree_layers[i][j].value);
+        const lines = calculateWrapText(g, tree_layers[i][j].value);
+        textWidth = lineLength;
+        textHeight = lines.length * lineHeight;
+        tree_layers[i][j].setBoxHeight(textHeight + tree_layers[i][j].inner_box_padding);
+      }
+      tree_layers[i][j].setBoxWidth(textWidth + tree_layers[i][j].inner_box_padding*2);
     }
   }
 

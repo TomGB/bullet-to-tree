@@ -15,6 +15,10 @@ function Tree(_value, _depth, _parent){
     this.box_width = _box_width;
   }
 
+  this.setBoxHeight = function (_box_height) {
+    this.box_height = _box_height;
+  }
+
   this.pos_x;
   this.pos_y;
 

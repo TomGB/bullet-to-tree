@@ -1,3 +1,30 @@
+let lineLength = 40;
+let lineHeight = 10;
+
+function wrapText(g, text, x, y) {
+	var words = text.split(' ');
+	var line = '';
+	var linesWritten = [];
+
+	for(var n = 0; n < words.length; n++) {
+		var testLine = line + words[n] + ' ';
+		var metrics = g.measureText(testLine);
+		var testWidth = metrics.width;
+		if (testWidth > lineLength && n > 0) {
+			linesWritten.push(line);
+			g.fillText(line, x, y);
+			line = words[n] + ' ';
+			y += lineHeight;
+		}
+		else {
+			line = testLine;
+		}
+	}
+	linesWritten.push(line);
+	g.fillText(line, x, y);
+	return linesWritten;
+}
+
 function draw(){
 	var g = canvas.getContext('2d');
 
@@ -28,12 +55,15 @@ function draw(){
 			if(debug_gui){
 				draw_crosshair(g, tree_layers[i][j]);
 			}
-
-      strokeRect(g, tree_layers[i][j].box_x, tree_layers[i][j].box_y, tree_layers[i][j].box_width, tree_layers[i][j].box_height);
-
       // g.stroke();
 			g.font="10px Arial";
-      g.fillText(tree_layers[i][j].value, tree_layers[i][j].box_x + tree_layers[i][j].inner_box_padding, tree_layers[i][j].box_y + tree_layers[i][j].inner_box_padding);
+      const linesWritten = wrapText(g, tree_layers[i][j].value, tree_layers[i][j].box_x + tree_layers[i][j].inner_box_padding, tree_layers[i][j].box_y + tree_layers[i][j].inner_box_padding);
+			// if (linesWritten.length > 1) {
+			// 	tree_layers[i][j].box_width = lineLength + tree_layers[i][j].outer_box_padding * 3;
+			// 	tree_layers[i][j].box_height = linesWritten.length * lineHeight  + tree_layers[i][j].outer_box_padding * 2;
+			// }
+
+			strokeRect(g, tree_layers[i][j].box_x, tree_layers[i][j].box_y, tree_layers[i][j].box_width, tree_layers[i][j].box_height);
     }
   }
 
@@ -74,3 +104,11 @@ function draw(){
 
 	window.requestAnimationFrame(draw);
 }
+
+
+$(document).on("line-length", (e, data) => {
+  const newLineLength = Number.parseInt(data);
+  if (newLineLength) {
+    lineLength = newLineLength;
+  }
+});
