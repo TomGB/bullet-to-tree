@@ -142,6 +142,8 @@ var selection_box = new Selection_box_class();
 
 window.addEventListener('load', function () {
 	canvas = document.getElementById('canvas');
+	canvas.width = document.body.clientWidth;
+	canvas.height = document.body.clientHeight;
 	width = canvas.width;
 	height = canvas.height;
 	console.log(width+' '+height);
@@ -173,6 +175,10 @@ window.addEventListener('load', function () {
   $(".js-line-length").on('input', function(e) {
     $(document).trigger("line-length",$(".js-line-length").val());
   });
+
+	$(".minimise").on('click', () => {
+		$('.tools').toggle();
+	})
 
   document.addEventListener('keydown', keyPressed, false);
   document.addEventListener('keyup', keyReleased, false);

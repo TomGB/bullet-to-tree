@@ -14,23 +14,26 @@ textarea{
 	display: block;
 }
 </style>
-<p>
-	Destructions:<br>
-	Enter a tabulated list above but use spaces instead of tabs.<br>
-	Press GO to generate a tree diagram<br>
-	Do not press go more than once as I have not written a reset method yet.<br>
-	Use Shift + LMB to pan around the canvas.<br>
-	Click and drag to select a number of nodes.<br>
-	Once selected you can move the nodes by clicking on them and dragging.<br>
-	Reset the position of a currently selected node by pressing 'r'.<br>
-	To connect two nodes with an arrow, select one node, then hold shift and click on another node.<br>
-	Create a new child node by selecting a node and pressing 'n'.<br>
-	At the moment adding a new node will reposition all of the other nodes.
-</p>
-<textarea class="input"></textarea><br>
-<input type="button" class="go" value="GO">
-<input type="button" class="insert_toki_pona" value="Insert Toki Pona"><br>
-<canvas id="canvas" width="800" height="800">
+<div class='tools'>
+	<p>
+		Destructions:<br>
+		Enter a tabulated list above but use spaces instead of tabs.<br>
+		Press GO to generate a tree diagram<br>
+		Do not press go more than once as I have not written a reset method yet.<br>
+		Use Shift + LMB to pan around the canvas.<br>
+		Click and drag to select a number of nodes.<br>
+		Once selected you can move the nodes by clicking on them and dragging.<br>
+		Reset the position of a currently selected node by pressing 'r'.<br>
+		To connect two nodes with an arrow, select one node, then hold shift and click on another node.<br>
+		Create a new child node by selecting a node and pressing 'n'.<br>
+		At the moment adding a new node will reposition all of the other nodes.
+	</p>
+	<textarea class="input"></textarea><br>
+	<input type="button" class="go" value="GO">
+	<input type="button" class="insert_toki_pona" value="Insert Toki Pona">
+</div>
+<input type="button" class="minimise" value="Toggle" />
+<canvas id="canvas" width="100%" height="100%">
 </canvas>
 <script src="jQuery.js"></script>
 <script type="text/javascript" src="gui.js"></script>
